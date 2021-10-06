@@ -1,8 +1,8 @@
-Abyiss JavaScript Client - WebSocket & REST APIs
+# Abyiss JavaScript Client - WebSocket & REST APIs
 
 JavaScript node.js client for the Abyiss Cryptocurrency API
 
-Getting Started
+# Getting Started
 
 For a basic overvview of our proeuct, check out our 
 
