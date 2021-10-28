@@ -1,13 +1,252 @@
+[![Tests](https://github.com/Abyiss/abyiss-express-deferred-REST/actions/workflows/nodejs.yml/badge.svg?branch=production)](https://github.com/Abyiss/abyiss-express-deferred-REST/actions/workflows/nodejs.yml)
+
 # Abyiss JavaScript Client - WebSocket & REST APIs
 
-JavaScript node.js client for the Abyiss Cryptocurrency API
+JavaScript node.js client for the Abyiss Cryptocurrency API. This API is currently in the beta. The current version of the API is v1.0.7. as of this writing 10/28/21.
+
+While the API is in beta, we will offer it as a free service and will not be charging any money. When we transition out of beta, we will offer it as a paid service. We suggest signing up for a free account to take advantage of our API and additional offers [Sign Up](https://www.abyiss.com/login).
+
+### We will be adding some of the additional features to this client libary and our API in roughly in this order: 
+* **API Keys** - This will allow you to access the API with a key attached to your free account.
+* **WebSockets** - This will allow you to subscribe to real time cryptocurrency market data from the API.
+* **Npm Package** - This will allow you to install the client as a pip package.
+* **Unified Endpoints** - This will allow you get a unified view of the entire cryptocurrency market.
+* **CSV Export** - This will allow you to export the market data to a CSV file.
+* **More Support** - Add support for more currencies, exchanges, markets, symbols, timeframes, functions, indicators and more.
+
+If you have any problems with this library, please open an issue request on [Github](https://github.com/Abyiss/Client-python/issues). To find more information about Abyiss please visit [Abyiss.com](https://www.abyiss.com/). 
+
+For any additional support please email us at [contact@abyiss.com](mailto:contact@abyiss.com).
+
 
 # Getting Started
 
-For a basic overvview of our proeuct, check out our 
+Currently to ping our API you can use the following URL endpoint: 
 
-# Install 
+#### [169.63.179.247](http://169.63.179.247/ping)
 
+To learn more about our other endpoints check out our website [Abyiss.com/Documentation](https://abyiss.com/documentation) or continue reading below:
 
+## Endpoints
 
-# Client-js
+### Ping 
+#### ***/ping*** 
+[http://169.63.179.247/ping](http://169.63.179.247/ping)
+* Returns a 200-status code upon successful query.
+* Returns a static object:
+  - **ping**: "Hello Abyiss"
+* Example Response:
+    ```json
+    {"ping":"Hello Abyiss"}
+    ```
+
+### Cryptocurrency Exchanges
+#### ***/v1/exchanges***
+[http://169.63.179.247/v1/exchanges](http://169.63.179.247/v1/exchanges)
+* Returns a 200-status code upon successful query.
+* Returns an array of all exchanges in the form of market objects that the API offers.
+* Response market object properties:
+  - **name**: the official name of the exchange.
+  -  **id**: the id of the exchange used within the API routes.
+* Example Response:
+    ```
+    /v1/exchanges
+    ```
+    ```json
+    [
+        {
+            "name":"Binance",
+            "id":"binance"
+        },
+        {
+            "name":"Binance US",
+            "id":"binanceus"
+        },
+        {
+            "name":"Coinbase Pro",
+            "id":"coinbasepro"
+        },
+        {
+            "name":"BitBay",
+            "id":"bitbay"
+        }
+    ]
+    ```
+
+#### ***/v1/{exchange id}***
+[http://169.63.179.247/v1/coinbasepro](http://169.63.179.247/v1/coinbasepro) 
+* Returns a 200-status code upon successfully query.
+* Returns objects with properties about the exchange.
+* Response object properties:
+  - **name**: the official name of the exchange.
+  - **id**: the id of the exchange used within the api routes.
+  - **url**: the exchange's official website URL.
+  - **hasTrades**: a Boolean of whether the api can be used to query market trades on the exchange.
+  - **hasAggregates**: a Boolean of whether the api can be used to query market candle aggregates on the exchange.
+  - **aggregateTimeframes**: an object containing all the timeframes supported for market candle aggregates.
+* Example Response:
+    ```
+    /v1/coinbasepro
+    ```
+    ```json
+    {
+        "name":"Coinbase Pro",
+        "id":"coinbasepro",
+        "url":"https://pro.coinbase.com/",
+        "hasTrades":true,
+        "hasAggregates":true,
+        "aggregateTimeframes":
+        {
+            "1m":60,
+            "5m":300,
+            "15m":900,
+            "1h":3600,
+            "6h":21600,
+            "1d":86400
+        }
+    }
+    ```
+
+#### ***/v1/{exchange id}/status***
+[http://169.63.179.247/v1/coinbasepro/status](http://169.63.179.247/v1/coinbasepro/status) 
+* Returns a 200-status code upon successful query.
+* Returns an object with properties that describe an exchange's status.
+* Response object properties:
+  - **status**: The status of the exchange. 'ok' is good.
+  - **updated**: Unix timestamp of last time the exchange’s status was updated.
+* Example Response:
+    ```
+    /v1/coinbasepro/status
+    ```
+    ```json
+    {
+        "status":"ok",
+        "updated":1634929487916
+    }
+    ```
+
+#### ***/v1/{exchange id}/markets***
+[http://169.63.179.247/v1/coinbasepro/markets](http://169.63.179.247/v1/coinbasepro/markets) 
+* Returns a 200-status code upon successful query.
+* Returns a list of all market ids on the exchange.
+* Example Response:
+    ```
+    /v1/coinbasepro/markets
+    ```
+    ```json
+    [
+        "OGN/BTC",
+        "REQ/BTC",
+        "KEEP/USD",
+        "AAVE/USD",
+        "SKL/GBP",
+        "MIR/EUR",
+        "FORTH/EUR",
+        "DOT/USDT"
+    ]
+    ```
+
+#### ***/v1/{exchange id}/{market id}***
+[http://169.63.179.247/v1/coinbasepro/btc-usd](http://169.63.179.247/v1/coinbasepro/BTC-USD) 
+* Returns a 200-status code upon successful query.
+* Returns an object with properties about the market.
+* Response object properties:
+  - **exchange**: The exchange id the market is on.
+  - **symbol**: The symbol of the market.
+  - **active**: Boolean whether the market is active on the exchange.
+  - **base**: The base of the market. eg: The quantity that is bought.
+  - **quote**: The quote of the market. eg: The currency being compared.
+  - **percentage**:
+  - **taker**:
+  - **maker**:
+  - **spot**:
+* Example Response:
+    ```
+    /v1/coinbasepro/BTC-USD
+    ```
+    ```json
+    {
+        "exchange":"coinbasepro",
+        "symbol":"BTC/USD",
+        "id":"BTC-USD",
+        "active":true,
+        "base":"BTC",
+        "quote":"USD",
+        "percentage":true,
+        "taker":0.005,
+        "maker":0.005,
+        "type":"spot"
+    }
+    ```
+
+#### ***/v1/{exchange id}/{market id}/trades***
+[http://169.63.179.247/v1/coinbasepro/btc-usd/trades](http://169.63.179.247/v1/coinbasepro/BTC-USD/trades) 
+* Returns a 200-status code upon successful query.
+* Returns an array of recent trades that have occurred on an exchange for that market.
+* Recent trade properties:
+  - **exchange**: The exchange id the trade occurred on.
+  - **market**: The market id - what was traded.
+  - **id**: The -exchange specific- unique id of the trade. Some exchanges do not have this.
+  - **timestamp**: The Unix timestamp that trade was executed.
+  - **price**: The quote currency price of the market.
+  - **size**: The quantity traded.
+  - **cost**: The quote cost: size * price.
+  - **side**: Whether the trade was a buy or sell.
+* Example Response:
+    ```
+    /v1/coinbasepro/BTC-USD/trades
+    ```
+    ```json
+    [
+        {
+            "exchange":"coinbasepro",
+            "market":"BTC/USD",
+            "id":"225294919",
+            "timestamp":"1634929741281",
+            "price":60344.64,
+            "size":0.00013204,
+            "cost":7.967906265599999,
+            "side":"buy"
+        }
+    ]
+    ```
+
+#### ***/v1/{exchange id}/{market id}/aggregates/{aggregate size}***
+[http://169.63.179.247/v1/coinbasepro/btc-usd/aggregates/1m](http://169.63.179.247/v1/coinbasepro/btc-usd/aggregates/1m) 
+* Returns a 200-status code upon successful query.
+* Returns an array of recent aggregate candlesticks for a given aggregate size on a given market on a given exchange.
+* aggregate size is exchange-specific and are listed in the endpoint: /v1/{exchange}
+* Recent aggregate properties:
+  - **exchange**: The exchange id the aggregate was calculated on.
+  - **market**: The market id the aggregate was calculated on.
+  - **timestamp**: The Unix timestamp for the start of the aggregate calculation, which defines the aggregate's scope.
+  - **open**: The first, or opening, price of the aggregate's scope.
+  - **high**: The highest price recorded within the scope of the aggregate.
+  - **low**: The lowest price recorded within the scope of the aggregate.
+  - **close**: The last, or closing, price within the aggregate's scope.
+  - **volume**: The volume within the aggregate's scope.
+* Example Response:
+    ```
+    /v1/coinbasepro/btc-usd/aggregates/1m
+    ```
+    ```json
+    [
+        {
+            "exchange":"coinbasepro",
+            "market":"BTC/USD",
+            "timestamp":1635171720000,
+            "open":63217.48,
+            "high":63224.51,
+            "low":63167.99,
+            "close":63182.8,
+            "volume":7.6732551
+        }
+    ]
+    ```
+
+### Redirects
+#### ***/*** 
+- redirects to https://abyiss.com
+#### ***/abyiss*** 
+- redirects to https://abyiss.com
+
