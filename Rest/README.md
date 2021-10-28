@@ -15,3 +15,6 @@ request('http://169.63.179.247/v1/exchanges', function (error, response, body) {
 });
 ```
 
+# Notes
+
+Make sure to have Node.js installed, with a npm project initated and also have the request package installed, to run the code above.
