@@ -1,0 +1,22 @@
+{
+  "name": "abyissjs",
+  "version": "1.0.0",
+  "description": "Abyiss js client library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abyiss/Client-js.git"
+  },
+  "keywords": [
+    "crypto"
+  ],
+  "author": "Abyissllc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abyiss/Client-js/issues"
+  },
+  "homepage": "https://github.com/Abyiss/Client-js#readme"
+}
