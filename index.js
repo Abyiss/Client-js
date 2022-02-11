@@ -41,7 +41,7 @@ class abyiss
         return await this.axi.get(this.ver + '/exchanges')
             .then(function(res) {
                 // console.log(res.data)
-                return JSON.stringify(res.data, null, 2)
+                return res.data
             })
             .catch(function(err) {
                 console.log(err)
@@ -161,6 +161,5 @@ class abyiss
     // This is the end of the abyiss class
 }
 
-let ax = new abyiss('d1V-97Qg@Lh6xuakUf2e)J^gE(@!*Xo5i06');
-console.log(ax.get_all());
+
 
