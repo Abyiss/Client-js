@@ -40,8 +40,8 @@ class abyiss
     {
         return await this.axi.get(this.ver + '/exchanges')
             .then(function(res) {
-                console.log(res.data)
-                return res.data
+                // console.log(res.data)
+                return JSON.stringify(res.data, null, 2)
             })
             .catch(function(err) {
                 console.log(err)
@@ -162,5 +162,5 @@ class abyiss
 }
 
 let ax = new abyiss('d1V-97Qg@Lh6xuakUf2e)J^gE(@!*Xo5i06');
-ax.orders('coinbasepro', 'BTC-USD');
+console.log(ax.get_all());
 
