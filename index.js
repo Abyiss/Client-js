@@ -160,6 +160,7 @@ class abyiss
 
     // This is the end of the abyiss class
 }
+module.exports = abyiss
 
 
 
