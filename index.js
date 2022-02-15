@@ -100,6 +100,34 @@ class abyiss
             })
     }
 
+    async currentPrice(exchange, market)
+    {
+        return await this.axi
+            .get(this.ver + '/' + exchange + '/' + market + '/currentPrice/')
+            .then(function(res) {
+                console.log(res.data)
+                return res.data
+            })
+            .catch(function(err) {
+                console.log(err)
+                return err
+            })
+    }
+
+    async snapshot(exchange, market)
+    {
+        return await this.axi
+            .get(this.ver + '/' + exchange + '/' + market + '/snapshot/')
+            .then(function(res) {
+                console.log(res.data)
+                return res.data
+            })
+            .catch(function(err) {
+                console.log(err)
+                return err
+            })
+    }
+
     // market data
     async aggregates(exchange, market, time)
     {
@@ -116,10 +144,39 @@ class abyiss
             })
     }
 
+    async lastAggregates(exchange, market, time)
+    {
+        return await this.axi
+            .get(this.ver + '/' + exchange + '/' + market + '/lastAggregates/' +
+                 time + 'm')
+            .then(function(res) {
+                console.log(res.data)
+                return res.data
+            })
+            .catch(function(err) {
+                console.log(err)
+                return err
+            })
+    }
+
     async trades(exchange, market)
     {
         return await this.axi
             .get(this.ver + '/' + exchange + '/' + market + '/trades')
+            .then(function(res) {
+                console.log(res.data)
+                return res.data
+            })
+            .catch(function(err) {
+                console.log(err)
+                return err
+            })
+    }
+
+    async lastTrade(exchange, market)
+    {
+        return await this.axi
+            .get(this.ver + '/' + exchange + '/' + market + '/tradesTrade')
             .then(function(res) {
                 console.log(res.data)
                 return res.data
@@ -160,7 +217,6 @@ class abyiss
 
     // This is the end of the abyiss class
 }
+
 module.exports = abyiss
-
-
 
