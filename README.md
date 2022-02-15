@@ -1,57 +1,54 @@
-[![Tests](https://github.com/Abyiss/abyiss-express-deferred-REST/actions/workflows/nodejs.yml/badge.svg?branch=production)](https://github.com/Abyiss/abyiss-express-deferred-REST/actions/workflows/nodejs.yml)
 
-# Abyiss JavaScript Client - WebSocket & REST APIs
+# Abyiss Python Client - WebSocket & REST APIs
 
-JavaScript node.js client for the Abyiss Cryptocurrency API. This API is currently in the beta. The current version of the API is v1.0.7. as of this writing 10/28/21.
+Python Client for Abyiss Cryptocurrency APIs.
 
-While the API is in beta, we will offer it as a free service and will not be charging any money. When we transition out of beta, we will offer it as a paid service. We suggest signing up for a free account to take advantage of our API and additional offers [Sign Up](https://www.abyiss.com/login).
+To use our API please sign up for a free account here: [Sign Up](https://www.abyiss.com/signin), and find your API Key in your [Dashboard](https://www.abyiss.com/dashboard).
 
-### We will be adding some of the additional features to this client libary and our API in roughly in this order: 
-* **API Keys** - This will allow you to access the API with a key attached to your free account.
+## Please use our official [Documentation](https://docs.abyiss.com/). It contains all the latest updates.
+
+### We will be adding some of the additional features to this client libary and our API in roughly in this order:
 * **WebSockets** - This will allow you to subscribe to real time cryptocurrency market data from the API.
-* **Npm Package** - This will allow you to install the client as a pip package.
 * **Unified Endpoints** - This will allow you get a unified view of the entire cryptocurrency market.
 * **CSV Export** - This will allow you to export the market data to a CSV file.
 * **More Support** - Add support for more currencies, exchanges, markets, symbols, timeframes, functions, indicators and more.
 
-If you have any problems with this library, please open an issue request on [Github](https://github.com/Abyiss/Client-python/issues). To find more information about Abyiss please visit [Abyiss.com](https://www.abyiss.com/). 
 
-For any additional support please email us at [contact@abyiss.com](mailto:contact@abyiss.com).
+If you have any problems with this library, please open an issue request on [Github](https://github.com/Abyiss/Client-python/issues) or for any additional support please email us at [support@abyiss.com](mailto:support@abyiss.com).
 
 
 # Getting Started
 
-Currently to ping our API you can use the following URL endpoint: 
+### Install Abyiss JS Library
 
-#### [169.63.179.247](http://169.63.179.247/ping)
+``` npm i abyiss ```
 
-To learn more about our other endpoints check out our website [Abyiss.com/Documentation](https://abyiss.com/documentation) or continue reading below:
+# add details here
 
-## Endpoints
+# More Details
 
-### Ping 
-#### ***/ping*** 
-[http://169.63.179.247/ping](http://169.63.179.247/ping)
-* Returns a 200-status code upon successful query.
-* Returns a static object:
-  - **ping**: "Hello Abyiss"
-* Example Response:
-    ```json
-    {"ping":"Hello Abyiss"}
-    ```
 
-### Cryptocurrency Exchanges
-#### ***/v1/exchanges***
-[http://169.63.179.247/v1/exchanges](http://169.63.179.247/v1/exchanges)
-* Returns a 200-status code upon successful query.
-* Returns an array of all exchanges in the form of market objects that the API offers.
-* Response market object properties:
-  - **name**: the official name of the exchange.
-  -  **id**: the id of the exchange used within the API routes.
-* Example Response:
-    ```
-    /v1/exchanges
-    ```
+### Abyiss Client
+
+## Reference Data
+
+
+### Get Exchanges
+
+```python
+exchanges = client.getExchanges()
+```
+
+* Returns an array of all supported exchanges in the form of market objects.
+
+* Parameters:
+  - **exchange**: String. Unique exchange identifier used by Abyiss.
+
+* Response Attributes:
+  - **name**: String. The official name of the exchange.
+  -  **id**: String. Unique exchange identifier used by Abyiss.
+
+* Response Object:
     ```json
     [
         {
@@ -73,21 +70,25 @@ To learn more about our other endpoints check out our website [Abyiss.com/Docume
     ]
     ```
 
-#### ***/v1/{exchange id}***
-[http://169.63.179.247/v1/coinbasepro](http://169.63.179.247/v1/coinbasepro) 
-* Returns a 200-status code upon successfully query.
-* Returns objects with properties about the exchange.
-* Response object properties:
-  - **name**: the official name of the exchange.
-  - **id**: the id of the exchange used within the api routes.
-  - **url**: the exchange's official website URL.
-  - **hasTrades**: a Boolean of whether the api can be used to query market trades on the exchange.
-  - **hasAggregates**: a Boolean of whether the api can be used to query market candle aggregates on the exchange.
-  - **aggregateTimeframes**: an object containing all the timeframes supported for market candle aggregates.
-* Example Response:
-    ```
-    /v1/coinbasepro
-    ```
+
+### Get Exchange Details
+
+
+
+* Returns an object with properties about the exchange.
+
+* Parameters:
+  - **exchange id**: String. Unique exchange identifier used by Abyiss.
+
+* Response Attributes:
+  - **name**: String. the official name of the exchange.
+  - **id**: String. the id of the exchange used within the api routes.
+  - **url**: String. the exchange's official website url.
+  - **hasTrades**: Boolean. Whether the api can be used to query market trades on the exchange.
+  - **hasAggregates**: Boolean. Whether the api can be used to query market candle aggregates on the exchange.
+  - **aggregateTimeframes**: Object containing all of the timeframes supported for market candle aggregates.
+
+* Response Object:
     ```json
     {
         "name":"Coinbase Pro",
@@ -107,17 +108,19 @@ To learn more about our other endpoints check out our website [Abyiss.com/Docume
     }
     ```
 
-#### ***/v1/{exchange id}/status***
-[http://169.63.179.247/v1/coinbasepro/status](http://169.63.179.247/v1/coinbasepro/status) 
-* Returns a 200-status code upon successful query.
+
+### Get Exchange Status
+
 * Returns an object with properties that describe an exchange's status.
-* Response object properties:
-  - **status**: The status of the exchange. 'ok' is good.
-  - **updated**: Unix timestamp of last time the exchange’s status was updated.
-* Example Response:
-    ```
-    /v1/coinbasepro/status
-    ```
+
+* Parameters:
+  - **exchange id**: String. Unique exchange identifier used by Abyiss.
+
+* Response Attributes:
+  - **status**: String. The status of the exchange. 'ok' is good.
+  - **updated**: Int. Unix timestamp of last time the exchage's status was updated.
+
+* Response Object:
     ```json
     {
         "status":"ok",
@@ -125,14 +128,18 @@ To learn more about our other endpoints check out our website [Abyiss.com/Docume
     }
     ```
 
-#### ***/v1/{exchange id}/markets***
-[http://169.63.179.247/v1/coinbasepro/markets](http://169.63.179.247/v1/coinbasepro/markets) 
-* Returns a 200-status code upon successful query.
-* Returns a list of all market ids on the exchange.
-* Example Response:
-    ```
-    /v1/coinbasepro/markets
-    ```
+
+
+### Get Exchange Markets
+* Returns an array of all crypto pair ids on the exchange.
+
+* Parameters:
+  - **exchange id**: String. Unique exchange identifier used by Abyiss.
+
+* Response Attributes:
+  - **pair id**: String. Unique Crypto Pair identifier used by the exchange.
+
+* Response Object:
     ```json
     [
         "OGN/BTC",
@@ -146,24 +153,28 @@ To learn more about our other endpoints check out our website [Abyiss.com/Docume
     ]
     ```
 
-#### ***/v1/{exchange id}/{market id}***
-[http://169.63.179.247/v1/coinbasepro/btc-usd](http://169.63.179.247/v1/coinbasepro/BTC-USD) 
-* Returns a 200-status code upon successful query.
-* Returns an object with properties about the market.
-* Response object properties:
-  - **exchange**: The exchange id the market is on.
-  - **symbol**: The symbol of the market.
-  - **active**: Boolean whether the market is active on the exchange.
-  - **base**: The base of the market. eg: The quantity that is bought.
-  - **quote**: The quote of the market. eg: The currency being compared.
-  - **percentage**:
-  - **taker**:
-  - **maker**:
-  - **spot**:
-* Example Response:
-    ```
-    /v1/coinbasepro/BTC-USD
-    ```
+
+### Get Exchange Markets Details
+
+* Returns an object with properties about the crypto pair.
+
+* Parameters:
+  - **exchange id**: String. Unique exchange identifier used by Abyiss.
+  - **market id**: String. Unique Crypto Pair identifier used by the exchange.
+
+* Response Attributes:
+  - **exchange**: String. Unique identifier used by Abyiss for the exchange.
+  - **symbol**: String. The symbol of the market.
+  - **id**: String. Unique identifier used by Abyiss for the market.
+  - **active**: Boolean. Whether the market is active on the exchange.
+  - **base**: String. The base of the market. eg: The quantity that is bought.
+  - **quote**: String. The quote of the market. eg: The currency being compared.
+  - **percentage**: Boolean. Whether the taker and maker fee rate is a multiplier or a fixed flat amount.
+  - **taker**: Float. Taker fee rate, 0.002 = 0.2%.
+  - **maker**: Float. Maker fee rate, 0.0016 = 0.16%.
+  - **spot**: String. Exchange type that the market is listed on.
+
+* Response Object:
     ```json
     {
         "exchange":"coinbasepro",
@@ -179,74 +190,192 @@ To learn more about our other endpoints check out our website [Abyiss.com/Docume
     }
     ```
 
-#### ***/v1/{exchange id}/{market id}/trades***
-[http://169.63.179.247/v1/coinbasepro/btc-usd/trades](http://169.63.179.247/v1/coinbasepro/BTC-USD/trades) 
-* Returns a 200-status code upon successful query.
-* Returns an array of recent trades that have occurred on an exchange for that market.
-* Recent trade properties:
-  - **exchange**: The exchange id the trade occurred on.
-  - **market**: The market id - what was traded.
-  - **id**: The -exchange specific- unique id of the trade. Some exchanges do not have this.
-  - **timestamp**: The Unix timestamp that trade was executed.
-  - **price**: The quote currency price of the market.
-  - **size**: The quantity traded.
-  - **cost**: The quote cost: size * price.
-  - **side**: Whether the trade was a buy or sell.
-* Example Response:
-    ```
-    /v1/coinbasepro/BTC-USD/trades
-    ```
+## Market Data
+
+### Aggregates
+
+
+
+* Returns an array of recent aggregate candlesticks of a given aggregate size for a market on an exchange.
+
+* Parameters:
+  - **exchange id**: String. Unique exchange identifier used by Abyiss.
+  - **market id**: String. Unique Crypto Pair identifier used by the exchange.
+  - **aggregate size**: String. Aggregate bar or candlestick time frame. (1m, 5m, 15m, 1h, 6h, 1d)
+  - **limit**: String. Optional. Number of results per request. Maximum 500. (default 200)
+
+* Response Attributes:
+  - **exchange**: String. Unique identifier used by Abyiss for the exchange.
+  - **market**: String. Unique identifier used by Abyiss for the market.
+  - **timestamp**: integer. Unix timestamp of the start of the aggregate calculation. Defining the scope.
+  - **open**: float. The first, or opening, price of the aggregate's scope.
+  - **high**: float. The highest price recorded within the scope of the aggregate.
+  - **low**: float. The lowest price recorded within the scope of the aggregate.
+  - **close**: float. The last, or closing, price within the aggregate's scope.
+  - **volume**: float. The volume within the aggregate's scope.
+
+* Response Object:
     ```json
-    [
-        {
-            "exchange":"coinbasepro",
-            "market":"BTC/USD",
-            "id":"225294919",
-            "timestamp":"1634929741281",
-            "price":60344.64,
-            "size":0.00013204,
-            "cost":7.967906265599999,
-            "side":"buy"
-        }
-    ]
+    {
+        "exchange": "coinbasepro",
+        "market": "BTC/USD",
+        "timestamp": 1639532040000,
+        "open": 48080,
+        "high": 48111.79,
+        "low": 48080,
+        "close": 48088.72,
+        "volume": 2.55482409
+    }
     ```
 
-#### ***/v1/{exchange id}/{market id}/aggregates/{aggregate size}***
-[http://169.63.179.247/v1/coinbasepro/btc-usd/aggregates/1m](http://169.63.179.247/v1/coinbasepro/btc-usd/aggregates/1m) 
-* Returns a 200-status code upon successful query.
-* Returns an array of recent aggregate candlesticks for a given aggregate size on a given market on a given exchange.
-* aggregate size is exchange-specific and are listed in the endpoint: /v1/{exchange}
-* Recent aggregate properties:
-  - **exchange**: The exchange id the aggregate was calculated on.
-  - **market**: The market id the aggregate was calculated on.
-  - **timestamp**: The Unix timestamp for the start of the aggregate calculation, which defines the aggregate's scope.
-  - **open**: The first, or opening, price of the aggregate's scope.
-  - **high**: The highest price recorded within the scope of the aggregate.
-  - **low**: The lowest price recorded within the scope of the aggregate.
-  - **close**: The last, or closing, price within the aggregate's scope.
-  - **volume**: The volume within the aggregate's scope.
-* Example Response:
-    ```
-    /v1/coinbasepro/btc-usd/aggregates/1m
-    ```
+
+### Trades
+
+
+* Returns an array of recent trades that have occurred on an exchange for a crypto pair.
+
+* Parameters:
+  - **exchange id**: String. Unique exchange identifier used by Abyiss.
+  - **market id**: String. Unique Crypto Pair identifier used by the exchange.
+  - **limit**: String. Optional. Number of results per request. Maximum 500. (default 200)
+
+* Response Attributes:
+  - **exchange**: String. Unique identifier used by Abyiss for the exchange.
+  - **market**: String. Unique identifier used by Abyiss for the market.
+  - **id**: String. The exchange specific unique id of the trade.
+  - **timestamp**: string. Unix timestamp of the start of the aggregate calculation. Defining the scope.
+  - **price**: float. The quote currency price of the market.
+  - **size**: float. The quantity traded.
+  - **cost**: float. The quote cost: (size * price).
+  - **side**: string. Whether the trade was a buy or sell.
+
+* Response Object:
     ```json
-    [
-        {
-            "exchange":"coinbasepro",
-            "market":"BTC/USD",
-            "timestamp":1635171720000,
-            "open":63217.48,
-            "high":63224.51,
-            "low":63167.99,
-            "close":63182.8,
-            "volume":7.6732551
-        }
-    ]
+    {
+        "exchange": "coinbasepro",
+        "market": "BTC/USD",
+        "id": "251180247",
+        "timestamp": "1639534096083",
+        "price": 47887.03,
+        "size": 0.00013904,
+        "cost": 6.6582126511999995,
+        "side": "sell"
+    }
     ```
 
-### Redirects
-#### ***/*** 
-- redirects to https://abyiss.com
-#### ***/abyiss*** 
-- redirects to https://abyiss.com
+
+### Quotes
+
+* Returns an array of recent quotes that have occurred on an exchange for a crypto pair.
+
+* Parameters:
+  - **exchange id**: String. Unique exchange identifier used by Abyiss.
+  - **market id**: String. Unique Crypto Pair identifier used by the exchange.
+
+* Response Attributes:
+  - **exchange**: String. Unique identifier used by Abyiss for the exchange.
+  - **market**: String. Unique identifier used by Abyiss for the market.
+  - **bid price**: float. The bid price.
+  - **bid size**: float. The bid size.
+  - **ask price**: float. The ask price.
+  - **ask size**: float. The ask size.
+  - **timestamp**: integer. Unix timestamp of the start of the aggregate calculation. Defining the scope.
+
+
+* Response Object:
+    ```json
+    {
+        "exchange":"coinbasepro",
+        "market":"BTC/USD",
+        "nonce":14601360013,
+        "bids":
+        [
+            [
+                61947.91,
+                1.48088
+            ],
+            [
+                61947.9,
+                0.5
+            ],
+            [
+                61944.07,
+                0.44094
+            ]
+        ],
+        "asks":
+        [
+            [
+                61947.92,
+                2.28573
+            ],
+            [
+                61952.89,
+                0.11214
+            ],
+            [
+                61952.9,
+                0.50224
+            ]
+        ]
+    }
+    ```
+
+
+### Level 2 OrderBook
+
+* Returns a snapshot of the recent level 2 orderbook for a crypto pair on an exchange.
+
+* Parameters:
+  - **exchange id**: String. Unique exchange identifier used by Abyiss.
+  - **market id**: String. Unique Crypto Pair identifier used by the exchange.
+
+* Response Attributes:
+  - **exchange**: String. Unique identifier used by Abyiss for the exchange.
+  - **market**: String. Unique identifier used by Abyiss for the market.
+  - **bid price**: float. The bid price.
+  - **bid size**: float. The bid size.
+  - **ask price**: float. The ask price.
+  - **ask size**: float. The ask size.
+  - **timestamp**: integer. Unix timestamp of the start of the aggregate calculation. Defining the scope.
+
+
+* Response Object:
+    ```json
+    {
+        "exchange":"coinbasepro",
+        "market":"BTC/USD",
+        "nonce":14601360013,
+        "bids":
+        [
+            [
+                61947.91,
+                1.48088
+            ],
+            [
+                61947.9,
+                0.5
+            ],
+            [
+                61944.07,
+                0.44094
+            ]
+        ],
+        "asks":
+        [
+            [
+                61947.92,
+                2.28573
+            ],
+            [
+                61952.89,
+                0.11214
+            ],
+            [
+                61952.9,
+                0.50224
+            ]
+        ]
+    }
+    ```
 
