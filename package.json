@@ -1,6 +1,6 @@
 {
-  "name": "abyissjs",
-  "version": "1.0.0",
+  "name": "abyiss",
+  "version": "0.0.1",
   "description": "Abyiss js client library",
   "main": "index.js",
   "scripts": {
