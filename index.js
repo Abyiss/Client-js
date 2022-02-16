@@ -164,7 +164,6 @@ class abyiss
         return await this.axi
             .get(this.ver + '/' + exchange + '/' + market + '/trades')
             .then(function(res) {
-                console.log(res.data)
                 return res.data
             })
             .catch(function(err) {
