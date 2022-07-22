@@ -65,7 +65,7 @@ export class Abyiss {
     return await this.build(`${endpoints.version}/${exchange}/${market}${endpoints.currentPrice}`)
   }
 
-  async aggregates(exchange: string, market: string, timeframe : string = '5m', params: Query = {}) {
+  async aggregates(exchange: string, market: string, timeframe = '5m', params: Query = {}) {
     return await this.build(`${endpoints.version}/${exchange}/${market}${endpoints.aggregate}/${timeframe}`, params)
   }
 
