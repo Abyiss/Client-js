@@ -16,7 +16,11 @@ export class Abyiss {
   }
 
   async build(route: string, query: Query = {}) {
-    return (await this.fetch(this.composeURL(route, query))).data
+    const response = await this.fetch(this.composeURL(route, query))
+    if (response.status !== 200) {
+      return response.toJSON()
+    }
+    return response.data
   }
 
   composeURL(route: string, query: Query = {}) {
@@ -28,7 +32,7 @@ export class Abyiss {
   }
 
   async fetch(url: string) {
-    return await axios.get(url)
+    return await axios.get(url).catch((error) => {return error})
   }
 
   async ping() {
